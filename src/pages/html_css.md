@@ -27,3 +27,5 @@ De volgorde is expres zo gedaan om je te helpen zo prettig mogelijk te leren:
 - Lesson 12: Organizing Content with Flexbox
 - Lesson 11: CSS Classes
 - Lesson 18: CSS Pseudo-classes
+
+Hierna kun je in één van de laatste levels je eigen website maken!
