@@ -82,8 +82,25 @@ const config: Config = {
       },
       items: [
         {
-          to: '/html_css',
+          type: 'docSidebar',
+          sidebarId: 'htmlCssSidebar',
           label: 'HTML & CSS',
+          position: 'left',
+        },
+        {
+          type: 'docSidebar',
+          sidebarId: 'jsSidebar',
+          label: 'JavaScript',
+          position: 'left',
+        },
+        {
+          to: '/cheatsheet',
+          label: 'Cheatsheet',
+          position: 'left',
+        },
+        {
+          to: '/jouw-website',
+          label: 'Jouw website',
           position: 'left',
         },
         {
@@ -97,7 +114,7 @@ const config: Config = {
       style: 'dark',
       links: [
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} Coderius Education, Inc. Built with Docusaurus.`,
+				copyright: `Licensed under Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)`,
     },
     prism: {
       theme: prismThemes.github,

@@ -1,0 +1,163 @@
+---
+title: Les 6 – Elementen opmaken met CSS
+sidebar_label: 6. Elementen opmaken
+hide_table_of_contents: true
+---
+
+import CodeEditor from '@site/src/components/CodeEditor';
+
+# Les 6 – Elementen opmaken met CSS
+
+## Wat ga je leren?
+
+Je leert hoe je met CSS ruimte, randen en achtergrondkleuren toevoegt aan elementen. Dit zijn de basiseigenschappen voor de **lay-out** van een pagina.
+
+## Theorie
+
+Met CSS kun je elk element een eigen uiterlijk geven. De belangrijkste eigenschappen voor lay-out:
+
+| Eigenschap | Wat het doet | Voorbeeld |
+|---|---|---|
+| `background-color` | Achtergrondkleur | `background-color: #f0f4ff;` |
+| `padding` | Ruimte *binnen* de rand | `padding: 20px;` |
+| `margin` | Ruimte *buiten* de rand | `margin: 10px;` |
+| `border` | Rand om het element | `border: 2px solid blue;` |
+| `border-radius` | Afgeronde hoeken | `border-radius: 8px;` |
+| `width` | Breedte van het element | `width: 200px;` |
+
+### Padding vs margin
+
+```
+┌─────────────────────────────┐
+│         margin              │
+│  ┌───────────────────────┐  │
+│  │       border          │  │
+│  │  ┌─────────────────┐  │  │
+│  │  │    padding      │  │  │
+│  │  │  ┌───────────┐  │  │  │
+│  │  │  │  inhoud   │  │  │  │
+│  │  │  └───────────┘  │  │  │
+│  │  └─────────────────┘  │  │
+│  └───────────────────────┘  │
+└─────────────────────────────┘
+```
+
+- **Padding**: ruimte tussen de inhoud en de rand
+- **Margin**: ruimte buiten het element, scheidt het van andere elementen
+
+## Predict
+
+Wat denk je dat er verandert als je `padding: 20px` verwijdert?
+
+<details>
+<summary>Klik hier voor het antwoord</summary>
+
+De tekst raakt direct de rand van de kaart. Zonder padding is er geen ademruimte tussen de inhoud en de border.
+
+</details>
+
+## Probeer het zelf!
+
+<CodeEditor
+  initialHtml={`<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <title>Elementen opmaken</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div>
+    <h2>Mijn kaart</h2>
+    <p>Dit is een gestylde kaart met een rand en achtergrondkleur.</p>
+  </div>
+</body>
+</html>`}
+  initialCss={`div {
+  background-color: #f0f4ff;
+  border: 2px solid #4a90e2;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 20px;
+  width: 300px;
+}`}
+  height="480px"
+/>
+
+## Investigate
+
+Experimenteer met de CSS:
+
+- Wat gebeurt er als je `border-radius` verhoogt naar `50px`?
+- Wat verandert er als je `padding` vergroot naar `40px`?
+- Probeer `margin: auto` — wat doet dat?
+
+## Modify
+
+**Opdracht:** Verander de achtergrondkleur naar lichtgeel en de randkleur naar rood.
+
+<details>
+<summary>Tip</summary>
+
+Pas `background-color` en de kleur in `border` aan in de CSS van `div`.
+
+</details>
+
+<details>
+<summary>Antwoord</summary>
+
+```css
+div {
+  background-color: #fffbe6;
+  border: 2px solid red;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 20px;
+  width: 300px;
+}
+```
+
+</details>
+
+## Make
+
+**Opdracht:** Ontwerp een simpel visitekaartje. Maak hiervoor een `<div>` die fungeert als het "kaartje" en geef het met CSS een vaste breedte, een lichte achtergrondkleur, een mooie rand (`border`) en wat ruimte aan de binnenkant (`padding`). 
+
+<details>
+<summary>Tip</summary>
+
+Geef de `<div>` een herkenbare achtergrond met `background-color`. Voeg je naam en rol toe met bijvoorbeeld een `<h2>` en `<p>`.
+
+</details>
+
+<details>
+<summary>Antwoord</summary>
+
+```html
+<!-- HTML -->
+<div>
+  <h2>Emma de Vries</h2>
+  <p>Web Developer</p>
+</div>
+```
+
+```css
+/* CSS */
+div {
+  width: 300px;
+  background-color: lightyellow;
+  border: 2px solid orange;
+  padding: 20px;
+}
+```
+
+</details>
+
+## Er gaat iets mis
+
+**`margin` en `padding` door elkaar halen**
+
+Een veelgemaakte fout is `margin` gebruiken als je `padding` bedoelt, of andersom. Onthoud:
+
+- Wil je ruimte **binnen** het element (tussen inhoud en rand)? → `padding`
+- Wil je ruimte **buiten** het element (afstand tot andere elementen)? → `margin`

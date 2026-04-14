@@ -1,0 +1,179 @@
+---
+title: Les 9 – Flexbox
+sidebar_label: 9. Flexbox
+hide_table_of_contents: true
+---
+
+import CodeEditor from '@site/src/components/CodeEditor';
+
+# Les 9 – Flexbox
+
+## Wat ga je leren?
+
+Je leert hoe je elementen naast elkaar zet en uitlijnt met **Flexbox** — het meest gebruikte hulpmiddel voor lay-out in CSS.
+
+## Theorie
+
+Standaard staan HTML-elementen als blokken **onder elkaar**. Met `display: flex` op een container zet je de elementen **naast elkaar**:
+
+```css
+.container {
+  display: flex;
+}
+```
+
+Alle directe kinderen van de container worden dan **flex-items**.
+
+### Handige flex-eigenschappen
+
+| Eigenschap | Op de **container** | Voorbeeld |
+|---|---|---|
+| `flex-direction` | Richting van de items | `row` (standaard) of `column` |
+| `justify-content` | Uitlijning langs de hoofdas | `flex-start`, `center`, `space-between` |
+| `align-items` | Uitlijning op de dwarsas | `flex-start`, `center`, `stretch` |
+| `gap` | Ruimte tussen de items | `gap: 16px;` |
+
+## Predict
+
+Wat denk je dat er gebeurt als je `flex-direction: column` toevoegt aan de container?
+
+<details>
+<summary>Klik hier voor het antwoord</summary>
+
+De items komen **onder elkaar** te staan, in plaats van naast elkaar. `column` verandert de richting van horizontaal naar verticaal.
+
+</details>
+
+## Probeer het zelf!
+
+<CodeEditor
+  initialHtml={`<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <title>Flexbox</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <div class="item">1</div>
+    <div class="item">2</div>
+    <div class="item">3</div>
+  </div>
+</body>
+</html>`}
+  initialCss={`.container {
+  display: flex;
+  gap: 10px;
+  background-color: #eee;
+  padding: 10px;
+}
+
+.item {
+  background-color: #4a90e2;
+  color: white;
+  padding: 30px;
+  font-size: 1.5rem;
+  text-align: center;
+}`}
+  height="480px"
+/>
+
+## Investigate
+
+Experimenteer met de CSS:
+
+- Voeg `justify-content: center` toe aan `.container` — wat verandert er?
+- Probeer `justify-content: space-between` — wat doet dat?
+- Voeg `flex-direction: column` toe — hoe staan de items nu?
+- Wat doet `align-items: center` als je de container een vaste hoogte geeft (`height: 200px`)?
+
+## Modify
+
+**Opdracht:** Centreer de items horizontaal én voeg een vierde item toe.
+
+<details>
+<summary>Tip</summary>
+
+Gebruik `justify-content: center` op de container. Voeg een nieuw `<div class="item">4</div>` toe in de HTML.
+
+</details>
+
+<details>
+<summary>Antwoord</summary>
+
+CSS toevoeging:
+```css
+.container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  background-color: #eee;
+  padding: 10px;
+}
+```
+
+HTML toevoeging:
+```html
+<div class="item">4</div>
+```
+
+</details>
+
+## Make
+
+**Opdracht:** Bouw een standaard header voor een website. Maak een flex-container (bijvoorbeeld een `<header>`) met daarin twee onderdelen: een logo (bijvoorbeeld een `<h1>`) en een navigatiemenu (bijvoorbeeld een `<nav>` met wat links erin). Gebruik Flexbox om het logo helemaal links te zetten en de navigatie helemaal rechts, en centreer ze verticaal.
+
+<details>
+<summary>Tip</summary>
+
+Geef de `header` de eigenschappen `display: flex;`, `justify-content: space-between;` en `align-items: center;`.
+
+</details>
+
+<details>
+<summary>Antwoord</summary>
+
+```html
+<!-- HTML -->
+<header>
+  <h1>MijnSite</h1>
+  <nav>
+    <a href="#">Home</a>
+    <a href="#">Over Ons</a>
+    <a href="#">Contact</a>
+  </nav>
+</header>
+```
+
+```css
+/* CSS */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #eee;
+  padding: 10px 20px;
+}
+
+nav a {
+  margin-left: 15px;
+  text-decoration: none;
+  color: black;
+}
+```
+
+</details>
+
+## Er gaat iets mis
+
+**`display: flex` op het verkeerde element**
+
+```css
+/* Fout: flex op het item zelf, niet de container */
+.item {
+  display: flex;
+}
+```
+
+Flexbox werkt op de **container** — het element dat de items bevat. Als je `display: flex` op de items zelf zet, heeft dat geen effect op hoe ze naast elkaar staan. Zet `display: flex` altijd op het **omhullende** element.
