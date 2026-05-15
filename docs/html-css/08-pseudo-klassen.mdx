@@ -27,24 +27,37 @@ a:hover {
 | Pseudo-klasse | Wanneer actief |
 |---|---|
 | `:hover` | Als de muis over het element beweegt |
+| `:active` | Op het moment dat je klikt (de muis is ingedrukt) |
+| `:focus` | Als het element "focus" heeft (bijv. een invoerveld waarin je typt) |
+| `:visited` | Een link die de bezoeker al eens heeft bezocht |
+| `:disabled` | Een uitgeschakeld formulier-element (knop of invoerveld) |
 | `:first-child` | Het eerste kind-element van zijn ouder |
 | `:last-child` | Het laatste kind-element van zijn ouder |
 | `:nth-child(n)` | Het n-de kind-element (bijv. `nth-child(2)`) |
 
+:::tip `:focus` en formulieren
+`:focus` is vooral nuttig voor [formulieren (les 12)](/docs/html-css/formulieren) — geef een actief invoerveld of geselecteerde knop een opvallende rand zodat de gebruiker ziet waar hij/zij bezig is. Belangrijk voor toegankelijkheid (mensen die met Tab navigeren).
+:::
+
 ## Predict
 
-Wat denk je dat er gebeurt als je de muis over de link beweegt in de preview?
+Bekijk de CSS hieronder. Wat denk je dat er gebeurt als je:
+1. Je muis over de link beweegt?
+2. Op de knop klikt en de muisknop **ingedrukt houdt**?
+3. In het invoerveld klikt om te typen?
 
 <details>
 <summary>Klik hier voor het antwoord</summary>
 
-De kleur van de link verandert van blauw naar rood, en de onderstreping verdwijnt. Zodra je de muis wegbeweegt, komt de oorspronkelijke stijl terug. `:hover` is alleen actief zolang de muis erop staat.
+1. **Hover**: de kleur van de link wordt rood en de onderstreping verdwijnt. Zodra je de muis wegbeweegt komt de blauwe link terug.
+2. **Active**: zolang je de muisknop ingedrukt houdt, krijgt de knop een andere kleur. Laat je los, dan gaat hij terug.
+3. **Focus**: het invoerveld krijgt een opvallende rand zodra je erin klikt of er met Tab naartoe navigeert.
 
 </details>
 
 ## Probeer het zelf!
 
-Beweeg je muis over de link en over de lijstitems in de preview.
+Beweeg je muis over de link, klik (en houd vast) op de knop, en klik in het invoerveld.
 
 <CodeEditor
   initialHtml={`<!DOCTYPE html>
@@ -58,6 +71,10 @@ Beweeg je muis over de link en over de lijstitems in de preview.
   <h1>Pseudo-klassen</h1>
 
   <p><a href="#">Beweeg je muis over mij</a></p>
+
+  <button>Klik mij en houd vast</button>
+
+  <p><input type="text" placeholder="Klik in dit veld"></p>
 
   <ul>
     <li>Eerste item</li>
@@ -76,11 +93,26 @@ a:hover {
   text-decoration: none;
 }
 
+button {
+  padding: 8px 16px;
+  background-color: lightgray;
+  border: 2px solid gray;
+  cursor: pointer;
+}
+
+button:active {
+  background-color: orange;
+}
+
+input:focus {
+  outline: 3px solid dodgerblue;
+}
+
 li:first-child {
   font-weight: bold;
   color: darkgreen;
 }`}
-  height="480px"
+  height="540px"
 />
 
 ## Investigate
@@ -90,6 +122,8 @@ Experimenteer:
 - Verander `li:first-child` in `li:last-child` — welk item wordt nu gestijld?
 - Probeer `li:nth-child(2)` — welk item krijgt dan de stijl?
 - Voeg `:hover` toe aan de `<li>` items — wat zie je als je eroverheen beweegt?
+- Vervang `button:active` door `button:hover` — wat verandert er aan wanneer de oranje kleur verschijnt?
+- Verwijder `input:focus` — klik in het veld. Hoe weet je nu nog dat het veld actief is?
 
 ## Modify
 

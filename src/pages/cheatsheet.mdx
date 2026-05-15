@@ -196,7 +196,220 @@ Met `<a>` maak je een klikbare link. Het `href` attribuut bevat de URL waar de l
 
 </details>
 
+### Semantische HTML
+
+<details>
+<summary>Pagina-structuur — <code>header</code>, <code>nav</code>, <code>main</code>, <code>section</code>, <code>article</code>, <code>footer</code></summary>
+
+Semantische tags vertellen *wat* een blok is, niet alleen hoe het eruitziet. Ze werken net als `<div>`, maar zijn beter voor screenreaders en zoekmachines.
+
+| Tag | Betekenis |
+|---|---|
+| `<header>` | Bovenkant pagina (logo, titel) |
+| `<nav>` | Navigatiemenu |
+| `<main>` | Hoofdinhoud |
+| `<section>` | Afgebakend onderdeel |
+| `<article>` | Op zichzelf staand stuk (blogpost) |
+| `<footer>` | Onderkant pagina |
+
+<CodeEditor
+  initialHtml={`<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header><h1>Mijn site</h1></header>
+  <nav><a href="#">Home</a> | <a href="#">Over</a></nav>
+  <main>
+    <article>
+      <h2>Bericht</h2>
+      <p>Inhoud van het artikel.</p>
+    </article>
+  </main>
+  <footer><p>&copy; 2025</p></footer>
+</body>
+</html>`}
+  initialCss={`header, footer { background: #eee; padding: 10px; }
+nav { padding: 10px; }
+main { padding: 16px; }`}
+  height="420px"
+/>
+
+</details>
+
+### Formulieren
+
+<details>
+<summary>Invoervelden — <code>form</code>, <code>input</code>, <code>label</code></summary>
+
+Een formulier bestaat uit `<input>`-velden met `<label>` ervoor. Het `for`-attribuut van het label moet overeenkomen met het `id` van de input. Veelgebruikte `type`-waarden: `text`, `number`, `email`, `password`, `checkbox`, `radio`.
+
+<CodeEditor
+  initialHtml={`<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <form>
+    <label for="naam">Naam:</label>
+    <input type="text" id="naam">
+
+    <label for="leeftijd">Leeftijd:</label>
+    <input type="number" id="leeftijd">
+
+    <label for="email">E-mail:</label>
+    <input type="email" id="email">
+
+    <button>Verstuur</button>
+  </form>
+</body>
+</html>`}
+  initialCss={`form { display: flex; flex-direction: column; gap: 6px; max-width: 280px; }
+label { font-weight: bold; }
+input { padding: 6px; }
+button { margin-top: 8px; padding: 6px 12px; }`}
+  height="440px"
+/>
+
+</details>
+
+<details>
+<summary>Tekstvak en dropdown — <code>textarea</code>, <code>select</code></summary>
+
+Voor langere teksten gebruik je `<textarea>`. Voor een keuzelijst (dropdown) gebruik je `<select>` met `<option>`-elementen.
+
+```html
+<label for="bericht">Bericht:</label>
+<textarea id="bericht" rows="4"></textarea>
+
+<label for="land">Land:</label>
+<select id="land">
+  <option value="nl">Nederland</option>
+  <option value="be">België</option>
+</select>
+```
+
+Elke `<option>` heeft een zichtbare tekst (tussen de tags) en een `value` (de waarde die het formulier verstuurt).
+
+<CodeEditor
+  initialHtml={`<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <form>
+    <label for="land">Land:</label>
+    <select id="land">
+      <option value="nl">Nederland</option>
+      <option value="be">België</option>
+      <option value="de">Duitsland</option>
+    </select>
+
+    <label for="bericht">Bericht:</label>
+    <textarea id="bericht" rows="3"></textarea>
+  </form>
+</body>
+</html>`}
+  initialCss={`form { display: flex; flex-direction: column; gap: 6px; max-width: 280px; }
+label { font-weight: bold; }
+select, textarea { padding: 6px; font-family: inherit; }`}
+  height="380px"
+/>
+
+</details>
+
 ### Groeperingen
+
+<details>
+<summary>Inline-element — <code>span</code></summary>
+
+`<span>` is het inline-tegendeel van `<div>`. Gebruik hem om een **klein stukje tekst** binnen een paragraaf te stijlen zonder een nieuwe regel te beginnen.
+
+```html
+<p>Dit is <span class="highlight">een gemarkeerd</span> woord.</p>
+```
+
+```css
+.highlight {
+  background-color: yellow;
+  color: red;
+}
+```
+
+Vuistregel: `<div>` voor blokken (rondom elementen), `<span>` voor tekst-stukjes binnen een regel.
+
+<CodeEditor
+  initialHtml={`<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <p>Dit is <span class="highlight">gemarkeerd</span> in een paragraaf.</p>
+</body>
+</html>`}
+  initialCss={`.highlight {
+  background-color: yellow;
+  color: darkred;
+  padding: 2px 6px;
+}`}
+  height="240px"
+/>
+
+</details>
+
+<details>
+<summary>Display-types — <code>block</code>, <code>inline</code>, <code>inline-block</code></summary>
+
+Elk HTML-element heeft een standaard display-type:
+
+| Type | Gedrag | Voorbeelden |
+|---|---|---|
+| `block` | Nieuwe regel, vult breedte | `<p>`, `<h1>`, `<div>` |
+| `inline` | In de tekst-stroom, breedte = inhoud | `<a>`, `<span>`, `<b>` |
+| `inline-block` | In de stroom, mét `width`/`padding` | (zelf instellen) |
+
+Je verandert het met de CSS-eigenschap `display`:
+
+```css
+.knop {
+  display: inline-block;  /* naast elkaar, maar mét padding en breedte */
+  padding: 8px 16px;
+}
+```
+
+<CodeEditor
+  initialHtml={`<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a href="#" class="knop">Een</a>
+  <a href="#" class="knop">Twee</a>
+  <a href="#" class="knop">Drie</a>
+</body>
+</html>`}
+  initialCss={`.knop {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #4a90e2;
+  color: white;
+  text-decoration: none;
+  margin-right: 4px;
+}`}
+  height="260px"
+/>
+
+</details>
 
 <details>
 <summary>Blok-element — <code>div</code></summary>
@@ -268,6 +481,29 @@ p {
 }`}
   height="360px"
 />
+
+</details>
+
+### Eenheden
+
+<details>
+<summary>CSS-eenheden — <code>px</code>, <code>rem</code>, <code>em</code>, <code>%</code></summary>
+
+| Eenheid | Wat | Wanneer |
+|---|---|---|
+| `px` | Vaste pixels | Borders, kleine vaste spacing |
+| `rem` | Relatief aan pagina-basis (meestal 16px) | Lettergrootte, padding, margin |
+| `em` | Relatief aan eigen `font-size` | Padding binnen een knop |
+| `%` | Procent van de ouder | Layout-breedte |
+
+```css
+h1 { font-size: 2rem; }          /* 32px bij standaard */
+button { padding: 0.5em 1em; }   /* schaalt mee met font-size */
+.kaart { width: 80%; }           /* 80% van de ouder */
+border: 2px solid black;         /* altijd 2 pixels */
+```
+
+Vuistregel: `rem` voor tekst en spacing (toegankelijk), `px` voor borders, `%` voor layout-breedte, `em` alleen als bewuste keuze.
 
 </details>
 
@@ -368,6 +604,46 @@ Met een klasse geef je één specifiek element een eigen stijl, zonder alle elem
   font-size: 1.5rem;
 }`}
   height="380px"
+/>
+
+</details>
+
+<details>
+<summary>Id-selector — <code>#naam</code></summary>
+
+Een `id` is een **unieke** naam voor één element (mag maar één keer per pagina voorkomen). In CSS selecteer je een id met een hekje (`#`):
+
+```html
+<p id="welkom">Welkom!</p>
+```
+
+```css
+#welkom {
+  color: green;
+  font-size: 2rem;
+}
+```
+
+Gebruik `class` voor stijlen die je hergebruikt, `id` voor één specifiek element dat je later ook met JavaScript wilt aanspreken.
+
+<CodeEditor
+  initialHtml={`<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <p id="welkom">Welkom!</p>
+  <p>Een gewone paragraaf.</p>
+</body>
+</html>`}
+  initialCss={`#welkom {
+  color: green;
+  font-size: 2rem;
+  font-weight: bold;
+}`}
+  height="320px"
 />
 
 </details>
@@ -641,17 +917,94 @@ button { padding: 8px 16px; font-size: 1rem; cursor: pointer; }`}
 
 </details>
 
+### Waarden en operatoren
+
+<details>
+<summary>Datatypes — <code>number</code>, <code>string</code>, <code>boolean</code></summary>
+
+JavaScript kent drie basis-datatypes:
+
+| Type | Wat | Voorbeeld |
+|---|---|---|
+| `number` | Getal | `42`, `3.14` |
+| `string` | Tekst tussen quotes | `'hallo'`, `"wereld"` |
+| `boolean` | Waar of onwaar | `true`, `false` |
+
+```js
+let leeftijd = 16;        // number
+let naam = 'Lisa';        // string
+let isIngelogd = true;    // boolean
+```
+
+Check het type van een waarde met `typeof`:
+
+```js
+console.log(typeof leeftijd);  // 'number'
+console.log(typeof naam);      // 'string'
+```
+
+</details>
+
+<details>
+<summary>Reken-operatoren — <code>+ - * /</code></summary>
+
+```js
+10 + 5   // 15
+10 - 5   // 5
+10 * 5   // 50
+10 / 5   // 2
+```
+
+Bij **strings** plakt `+` ze aan elkaar (concatenatie):
+
+```js
+'Hallo, ' + 'wereld!'      // 'Hallo, wereld!'
+'Ik ben ' + 16 + ' jaar.'  // 'Ik ben 16 jaar.'
+```
+
+Let op: `'5' + 1` is `'51'` (plakken), niet `6`. Gebruik `Number('5') + 1` om om te zetten.
+
+</details>
+
+<details>
+<summary>Vergelijk-operatoren — <code>===</code>, <code>!==</code>, <code>&gt;</code>, <code>&lt;</code></summary>
+
+Vergelijken levert altijd `true` of `false` op:
+
+| Operator | Betekenis |
+|---|---|
+| `===` | Gelijk aan (strikt) |
+| `!==` | Niet gelijk aan |
+| `>` | Groter dan |
+| `<` | Kleiner dan |
+| `>=` | Groter of gelijk |
+| `<=` | Kleiner of gelijk |
+
+```js
+5 > 3       // true
+5 === 5     // true
+5 === '5'   // false  (number vs string)
+```
+
+Gebruik altijd `===` (strikt), niet `==`. `==` doet automatische type-conversie en geeft soms verrassende resultaten.
+
+</details>
+
 ### Variabelen
 
 <details>
-<summary>Variabele aanmaken en aanpassen — <code>let</code></summary>
+<summary>Variabele aanmaken en aanpassen — <code>let</code> en <code>const</code></summary>
 
-Met `let` maak je een variabele aan. Je geeft hem een naam en een beginwaarde. De waarde kun je daarna aanpassen.
+Met `let` maak je een variabele aan die **kan veranderen**. Met `const` maak je een constante — de waarde blijft hetzelfde.
 
 ```js
-let teller = 0;       // aanmaken met beginwaarde
-teller = teller + 1;  // waarde aanpassen
+let teller = 0;          // mag veranderen
+teller = teller + 1;     // waarde aanpassen
+
+const startwaarde = 0;   // mag niet meer veranderen
 ```
+
+**Vuistregel**: gebruik standaard `const`. Pas als de waarde echt moet kunnen veranderen, gebruik je `let`.
 
 Zet variabelen die je wilt **onthouden tussen klikken** altijd **buiten** de functie. Binnen een functie wordt de variabele elke keer opnieuw aangemaakt en reset hij naar de beginwaarde.
 
@@ -686,6 +1039,66 @@ document.getElementById('knop').addEventListener('click', function() {
   document.getElementById('uitvoer').textContent = teller;
 });`}
   height="460px"
+  livePreview={false}
+/>
+
+</details>
+
+### Beslissingen
+
+<details>
+<summary>If / else — verschillende acties op basis van een voorwaarde</summary>
+
+Met `if` voer je code alleen uit als een voorwaarde `true` is. Met `else` geef je een alternatief op voor als de voorwaarde `false` is.
+
+```js
+if (score > 10) {
+  document.getElementById('uitvoer').textContent = 'Gewonnen!';
+} else {
+  document.getElementById('uitvoer').textContent = 'Niet genoeg punten.';
+}
+```
+
+Voor meerdere gevallen ketting je `else if`:
+
+```js
+if (score >= 90) {
+  cijfer = 'A';
+} else if (score >= 70) {
+  cijfer = 'B';
+} else if (score >= 50) {
+  cijfer = 'C';
+} else {
+  cijfer = 'Onvoldoende';
+}
+```
+
+JavaScript probeert de takken van boven naar beneden en stopt bij de eerste die klopt.
+
+<CodeEditor
+  initialHtml={`<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <p id="uitvoer">Klik op de knop.</p>
+  <button onclick="check()">Check</button>
+</body>
+</html>`}
+  initialCss={`p { font-size: 1.4rem; padding: 12px; }
+button { padding: 8px 16px; font-size: 1rem; cursor: pointer; }`}
+  initialJs={`function check() {
+  const leeftijd = 16;
+  if (leeftijd >= 18) {
+    document.getElementById('uitvoer').textContent = 'Je mag stemmen.';
+  } else {
+    document.getElementById('uitvoer').textContent = 'Nog even wachten.';
+  }
+}`}
+  height="440px"
   livePreview={false}
 />
 
@@ -740,6 +1153,163 @@ document.getElementById('knop').addEventListener('click', function() {
   document.getElementById('status').textContent = 'Geklikt!';
 });`}
   height="480px"
+  livePreview={false}
+/>
+
+</details>
+
+### Formulier-data ophalen
+
+<details>
+<summary>Invoer uitlezen met <code>.value</code></summary>
+
+Met `.value` lees je uit wat de gebruiker in een formulierveld heeft getypt of gekozen. Werkt voor `<input>`, `<textarea>` en `<select>`.
+
+```js
+const naam = document.getElementById('naam').value;             // string
+const leeftijd = Number(document.getElementById('lft').value);  // number
+const keuze = document.getElementById('land').value;            // value van <option>
+```
+
+:::tip Vergeet `Number()` niet
+`.value` is **altijd een string**, ook bij `<input type="number">`. Zonder `Number()` plakt `+` getallen aan elkaar in plaats van op te tellen.
+:::
+
+<CodeEditor
+  initialHtml={`<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <input type="text" id="naam" placeholder="Je naam">
+  <button type="button" onclick="begroet()">Begroet</button>
+  <p id="uitvoer"></p>
+</body>
+</html>`}
+  initialCss={`input { padding: 6px; font-size: 1rem; }
+button { padding: 6px 12px; cursor: pointer; }
+#uitvoer { margin-top: 12px; color: darkgreen; }`}
+  initialJs={`function begroet() {
+  const naam = document.getElementById('naam').value;
+  document.getElementById('uitvoer').textContent = 'Hoi ' + naam + '!';
+}`}
+  height="360px"
+  livePreview={false}
+/>
+
+</details>
+
+### Operatoren en datatypes
+
+<details>
+<summary>Datatypes — number, string, boolean</summary>
+
+JavaScript kent drie basis-datatypes:
+
+| Type | Wat het is | Voorbeeld |
+|---|---|---|
+| `number` | Getal | `42`, `3.14` |
+| `string` | Tekst (tussen quotes) | `'hallo'`, `"Anna"` |
+| `boolean` | Ja/nee | `true`, `false` |
+
+```js
+let leeftijd = 16;        // number
+let naam = 'Anna';        // string
+let isJarig = true;       // boolean
+```
+
+</details>
+
+<details>
+<summary>Rekenoperatoren — <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>, <code>%</code></summary>
+
+| Operator | Wat | Voorbeeld |
+|---|---|---|
+| `+` | Optellen / strings plakken | `3 + 4` → `7`; `'Hi ' + naam` |
+| `-` | Aftrekken | `10 - 3` → `7` |
+| `*` | Vermenigvuldigen | `3 * 4` → `12` |
+| `/` | Delen | `10 / 2` → `5` |
+| `%` | Rest na deling | `10 % 3` → `1` |
+
+Let op: `'3' + 4` is `'34'` (string-concatenatie), `3 + 4` is `7` (optellen). Gebruik `Number(x)` om een string naar een getal te zetten.
+
+</details>
+
+<details>
+<summary>Vergelijkingsoperatoren — <code>===</code>, <code>!==</code>, <code>&gt;</code>, <code>&lt;</code></summary>
+
+Resultaat van een vergelijking is altijd een **boolean** (`true` of `false`):
+
+| Operator | Wat | Voorbeeld |
+|---|---|---|
+| `===` | Gelijk aan | `5 === 5` → `true` |
+| `!==` | Niet gelijk | `5 !== 3` → `true` |
+| `>` | Groter dan | `5 > 3` → `true` |
+| `<` | Kleiner dan | `5 < 3` → `false` |
+| `>=` | Groter of gelijk | `5 >= 5` → `true` |
+| `<=` | Kleiner of gelijk | `5 <= 4` → `false` |
+
+Gebruik altijd `===` (drie tekens), niet `==`. `5 == '5'` is `true` maar `5 === '5'` is `false` — en dat laatste klopt: een getal is geen string.
+
+</details>
+
+### Beslissingen — if / else
+
+<details>
+<summary>if, else, else if</summary>
+
+Met `if` voer je code alleen uit als een voorwaarde waar is. Met `else` doe je iets *anders* als de voorwaarde niet klopt. Met `else if` ketens van voorwaarden:
+
+```js
+if (cijfer >= 8) {
+  console.log('Goed');
+} else if (cijfer >= 5.5) {
+  console.log('Voldoende');
+} else {
+  console.log('Onvoldoende');
+}
+```
+
+Combineer voorwaarden met `&&` (EN), `||` (OF), `!` (NIET):
+
+```js
+if (leeftijd >= 18 && heeftToegang) { ... }
+if (dag === 'za' || dag === 'zo') { ... }
+if (!isJarig) { ... }
+```
+
+**Veelgemaakte fout**: `if (score = 10)` — één `=` is toekennen, geen vergelijking. Gebruik `===`.
+
+<CodeEditor
+  initialHtml={`<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <p id="uitvoer">Klik op de knop.</p>
+  <button onclick="check()">Check cijfer</button>
+</body>
+</html>`}
+  initialCss={`p { font-size: 1.3rem; padding: 12px; }
+button { padding: 8px 16px; font-size: 1rem; cursor: pointer; }`}
+  initialJs={`function check() {
+  const cijfer = 7;
+
+  if (cijfer >= 8) {
+    document.getElementById('uitvoer').textContent = 'Goed!';
+  } else if (cijfer >= 5.5) {
+    document.getElementById('uitvoer').textContent = 'Voldoende';
+  } else {
+    document.getElementById('uitvoer').textContent = 'Onvoldoende';
+  }
+}`}
+  height="460px"
   livePreview={false}
 />
 

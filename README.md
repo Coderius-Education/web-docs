@@ -1,41 +1,64 @@
-# Website
+# Webontwikkeling Leren — HTML, CSS & JavaScript
 
-This website is built using [Docusaurus](https://docusaurus.io/), a modern static website generator.
+Een interactief curriculum voor beginnende web-developers. Geen passieve documentatie, maar lessen waarin studenten via de **PRIMM-methode** (Predict, Run, Investigate, Modify, Make) zelf leren door te doen.
 
-## Installation
+## Curriculum
 
-```bash
-yarn
+- **12 lessen HTML & CSS** — van basisstructuur tot Flexbox, pseudo-klassen, semantische HTML en formulieren
+- **9 lessen JavaScript Basics** — van inline `onclick` tot event-listeners, variabelen, operatoren en beslissingen
+- **Cheatsheet** — alle behandelde syntax met live voorbeelden
+- **Interactieve CodeEditor** in elke les — HTML / CSS / JavaScript tabs met live preview en console
+
+Volledige curriculum-planning en verbeterpunten: zie [`leerlijn.md`](leerlijn.md).
+
+## Didactische principes
+
+Beschreven in [`CLAUDE.md`](CLAUDE.md). Kort samengevat:
+
+1. **PRIMM-methode** — elke les leidt de student door Predict → Run → Investigate → Modify → Make
+2. **Fout-gestuurd leren** — elke les heeft een "Er gaat iets mis" sectie met veelvoorkomende fouten
+3. **Cognitive load beperken** — maximaal 1–2 nieuwe concepten per les, progressive disclosure via `<details>`-blokken
+4. **Scaffolding** — opdrachten met zowel verborgen tips als verborgen antwoorden
+
+## Projectstructuur
+
+```
+docs/
+  html-css/          # 12 HTML & CSS lessen (genummerd 01–12)
+  js-basics/         # 9 JavaScript lessen (genummerd 00–08)
+src/
+  pages/
+    index.tsx        # Homepage met start-knop en cursus-kaartjes
+    cheatsheet.mdx   # Snelle-naslag pagina
+    jouw-website.mdx # Eindproject-pagina
+  components/
+    CodeEditor/      # Interactieve editor met live preview
+    HomepageFeatures/# Cursus-kaartjes op homepage
+docusaurus.config.ts # Site-configuratie
+sidebars.ts          # Sidebar-structuur (auto-generated per folder)
+leerlijn.md          # Curriculum-overzicht en verbeterpunten
 ```
 
-## Local Development
+## Lokaal draaien
 
 ```bash
-yarn start
+yarn          # dependencies installeren
+yarn start    # dev-server op http://localhost:3000
+yarn build    # productie-build naar build/
 ```
 
-This command starts a local development server and opens up a browser window. Most changes are reflected live without having to restart the server.
+## Deployen
 
-## Build
+Via GitHub Pages:
 
 ```bash
-yarn build
+GIT_USER=<jouw-github-username> yarn deploy
 ```
 
-This command generates static content into the `build` directory and can be served using any static contents hosting service.
+## Bijdragen
 
-## Deployment
+Lees `CLAUDE.md` voor de auteurs-checklist (leerdoel, fout, interactie, scaffolding, cheatsheet) voordat je een nieuwe les schrijft of een bestaande aanpast. Nieuwe lessen volgen het patroon `NN-onderwerp.mdx` in `docs/html-css/` of `docs/js-basics/`.
 
-Using SSH:
+## Gebouwd met
 
-```bash
-USE_SSH=true yarn deploy
-```
-
-Not using SSH:
-
-```bash
-GIT_USER=<Your GitHub username> yarn deploy
-```
-
-If you are using GitHub pages for hosting, this command is a convenient way to build the website and push to the `gh-pages` branch.
+[Docusaurus](https://docusaurus.io/) — modern static-site framework voor documentatie.
