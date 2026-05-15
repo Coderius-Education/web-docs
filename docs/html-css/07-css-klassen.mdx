@@ -41,6 +41,28 @@ Een element kan meerdere klassen hebben, gescheiden door een spatie:
 
 Beide klassen worden dan tegelijk toegepast.
 
+### En `id`? — uniek vs herbruikbaar
+
+Naast `class` bestaat ook het `id`-attribuut. Het verschil:
+
+- `class` is **herbruikbaar** — meerdere elementen mogen dezelfde klasse hebben.
+- `id` is **uniek** — een `id` mag maar één keer op de pagina voorkomen.
+
+In CSS selecteer je een id met een **hekje** (`#`) in plaats van een punt:
+
+```html
+<p id="welkom">Welkom op mijn site!</p>
+```
+
+```css
+#welkom {
+  color: green;
+  font-size: 2rem;
+}
+```
+
+Vuistregel: gebruik `class` voor stijlen die je vaker wilt hergebruiken, en `id` voor één specifiek element dat je later ook met JavaScript wilt aanspreken.
+
 ## Predict
 
 Wat zie je als je `class="rood groot"` op een element zet, terwijl `.rood` en `.groot` beide in de CSS staan?

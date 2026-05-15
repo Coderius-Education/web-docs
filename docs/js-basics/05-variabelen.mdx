@@ -36,6 +36,21 @@ En je kunt de waarde tonen op de pagina:
 document.getElementById('uitvoer').textContent = teller;
 ```
 
+### `let` of `const`?
+
+Naast `let` bestaat ook `const`. Het verschil:
+
+- `let` — de waarde **kan veranderen** (zoals een teller die optelt)
+- `const` — de waarde **blijft constant**, hij mag na het toekennen niet meer veranderen
+
+```js
+const startwaarde = 0;   // verandert nooit
+let teller = startwaarde; // mag wel veranderen
+teller = teller + 1;
+```
+
+**Vuistregel**: gebruik standaard `const`. Pas als de waarde echt moet kunnen veranderen, gebruik je `let`.
+
 ## Predict
 
 Bekijk de startcode in het script.js-tabblad. Beantwoord de vraag hieronder **voordat** je op Run klikt.
@@ -60,7 +75,7 @@ Na elke klik wordt `teller` met 1 verhoogd en op de pagina getoond. Na drie klik
 </head>
 <body>
   <p id="uitvoer">0</p>
-  <button id="knop">Klik mij</button>
+  <button onclick="telOp()">Klik mij</button>
 </body>
 </html>`}
   initialCss={`p {
@@ -75,11 +90,11 @@ button {
 }`}
   initialJs={`let teller = 0;
 
-document.getElementById('knop').addEventListener('click', function() {
+function telOp() {
   teller = teller + 1;
   document.getElementById('uitvoer').textContent = teller;
   console.log('Teller staat op:', teller);
-});`}
+}`}
   height="500px"
   livePreview={false}
 />
@@ -99,7 +114,7 @@ Experimenteer:
 <details>
 <summary>Tip</summary>
 
-Geef de reset-knop een eigen `id`. Gebruik `addEventListener` om bij een klik `teller = 0` in te stellen en de `<p>` bij te werken.
+Schrijf een functie `reset()` die `teller = 0` zet en de `<p>` bijwerkt. Roep die aan vanuit een `onclick`-attribuut op een nieuwe knop.
 
 </details>
 
@@ -108,15 +123,15 @@ Geef de reset-knop een eigen `id`. Gebruik `addEventListener` om bij een klik `t
 
 HTML-toevoeging:
 ```html
-<button id="reset">Reset</button>
+<button onclick="reset()">Reset</button>
 ```
 
 Toevoeging in script.js:
 ```js
-document.getElementById('reset').addEventListener('click', function() {
+function reset() {
   teller = 0;
   document.getElementById('uitvoer').textContent = teller;
-});
+}
 ```
 
 </details>
@@ -128,12 +143,15 @@ document.getElementById('reset').addEventListener('click', function() {
 <details>
 <summary>Tip</summary>
 
-Gebruik een `if`-controle om te checken of de score groter dan 0 is voordat je 1 aftrekt:
+Je hebt een **beslissing** nodig: alleen aftrekken als de score boven 0 is. In JavaScript schrijf je dat met `if`. De volledige uitleg krijg je in [les 8 (Beslissingen)](/docs/js-basics/if-else), maar voor nu kun je dit patroon kopiëren:
+
 ```js
 if (score > 0) {
   score = score - 1;
 }
 ```
+
+Tussen de haakjes staat de voorwaarde (`score > 0`). De regels tussen `{ ... }` worden alleen uitgevoerd als die voorwaarde klopt.
 
 </details>
 
@@ -143,25 +161,25 @@ if (score > 0) {
 HTML:
 ```html
 <p id="score">0</p>
-<button id="plus">+1 punt</button>
-<button id="min">-1 punt</button>
+<button onclick="plus()">+1 punt</button>
+<button onclick="min()">-1 punt</button>
 ```
 
 script.js:
 ```js
 let score = 0;
 
-document.getElementById('plus').addEventListener('click', function() {
+function plus() {
   score = score + 1;
   document.getElementById('score').textContent = score;
-});
+}
 
-document.getElementById('min').addEventListener('click', function() {
+function min() {
   if (score > 0) {
     score = score - 1;
     document.getElementById('score').textContent = score;
   }
-});
+}
 ```
 
 </details>
@@ -171,10 +189,10 @@ document.getElementById('min').addEventListener('click', function() {
 **Variabele binnen de functie declareren**
 
 ```js
-document.getElementById('knop').addEventListener('click', function() {
+function telOp() {
   let teller = 0;       // Fout: elke klik reset de teller naar 0!
   teller = teller + 1;
-});
+}
 ```
 
 Als je `let teller = 0` binnen de functie zet, wordt de variabele bij elke klik opnieuw aangemaakt en begint hij altijd bij 0. De teller telt dan nooit verder dan 1. Zet variabelen die je wilt onthouden **buiten** de functie.

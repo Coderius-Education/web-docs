@@ -1,58 +1,57 @@
 ---
-title: Les 6 – Elementen opmaken met CSS
-sidebar_label: 6. Elementen opmaken
+title: Les 6 – Ruimte rond elementen
+sidebar_label: 6. Ruimte rond elementen
 hide_table_of_contents: true
 ---
 
 import CodeEditor from '@site/src/components/CodeEditor';
 
-# Les 6 – Elementen opmaken met CSS
+# Les 6 – Ruimte rond elementen
 
 ## Wat ga je leren?
 
-Je leert hoe je met CSS ruimte, randen en achtergrondkleuren toevoegt aan elementen. Dit zijn de basiseigenschappen voor de **lay-out** van een pagina.
+Je leert hoe je met **padding** en **margin** ruimte rond elementen instelt — en hoe je elementen groepeert in een `<div>` met een achtergrondkleur.
 
 ## Theorie
 
-Met CSS kun je elk element een eigen uiterlijk geven. De belangrijkste eigenschappen voor lay-out:
+Elk HTML-element heeft een onzichtbare "doos" om zich heen. Je kunt op twee plekken ruimte toevoegen:
 
-| Eigenschap | Wat het doet | Voorbeeld |
-|---|---|---|
-| `background-color` | Achtergrondkleur | `background-color: #f0f4ff;` |
-| `padding` | Ruimte *binnen* de rand | `padding: 20px;` |
-| `margin` | Ruimte *buiten* de rand | `margin: 10px;` |
-| `border` | Rand om het element | `border: 2px solid blue;` |
-| `border-radius` | Afgeronde hoeken | `border-radius: 8px;` |
-| `width` | Breedte van het element | `width: 200px;` |
-
-### Padding vs margin
+- **`padding`** — ruimte **binnen** het element, tussen de inhoud en de rand.
+- **`margin`** — ruimte **buiten** het element, afstand tot andere elementen.
 
 ```
 ┌─────────────────────────────┐
 │         margin              │
 │  ┌───────────────────────┐  │
-│  │       border          │  │
+│  │       padding         │  │
 │  │  ┌─────────────────┐  │  │
-│  │  │    padding      │  │  │
-│  │  │  ┌───────────┐  │  │  │
-│  │  │  │  inhoud   │  │  │  │
-│  │  │  └───────────┘  │  │  │
+│  │  │     inhoud      │  │  │
 │  │  └─────────────────┘  │  │
 │  └───────────────────────┘  │
 └─────────────────────────────┘
 ```
 
-- **Padding**: ruimte tussen de inhoud en de rand
-- **Margin**: ruimte buiten het element, scheidt het van andere elementen
+Met `background-color` geef je het element een achtergrondkleur — zo zie je goed waar het element begint en eindigt.
+
+### De `<div>` tag
+
+Een `<div>` is een onzichtbaar **blok** waarmee je andere elementen groepeert. Op zichzelf doet hij niets, maar via CSS kun je hem ruimte en kleur geven om groepen elementen visueel te scheiden.
+
+```html
+<div>
+  <h2>Een titel</h2>
+  <p>Wat tekst eronder.</p>
+</div>
+```
 
 ## Predict
 
-Wat denk je dat er verandert als je `padding: 20px` verwijdert?
+Wat denk je dat er verandert als je `padding: 20px` verwijdert uit de CSS hieronder?
 
 <details>
 <summary>Klik hier voor het antwoord</summary>
 
-De tekst raakt direct de rand van de kaart. Zonder padding is er geen ademruimte tussen de inhoud en de border.
+De tekst raakt direct de rand van de gekleurde achtergrond. Zonder padding is er geen ademruimte tussen de inhoud en de rand van het blok.
 
 </details>
 
@@ -63,23 +62,24 @@ De tekst raakt direct de rand van de kaart. Zonder padding is er geen ademruimte
 <html lang="nl">
 <head>
   <meta charset="UTF-8">
-  <title>Elementen opmaken</title>
+  <title>Ruimte rond elementen</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div>
-    <h2>Mijn kaart</h2>
-    <p>Dit is een gestylde kaart met een rand en achtergrondkleur.</p>
+    <h2>Mijn blok</h2>
+    <p>Dit is een blok met padding en margin.</p>
+  </div>
+  <div>
+    <h2>Tweede blok</h2>
+    <p>Tussen de blokken zit margin-ruimte.</p>
   </div>
 </body>
 </html>`}
   initialCss={`div {
   background-color: #f0f4ff;
-  border: 2px solid #4a90e2;
-  border-radius: 8px;
   padding: 20px;
   margin: 20px;
-  width: 300px;
 }`}
   height="480px"
 />
@@ -88,18 +88,19 @@ De tekst raakt direct de rand van de kaart. Zonder padding is er geen ademruimte
 
 Experimenteer met de CSS:
 
-- Wat gebeurt er als je `border-radius` verhoogt naar `50px`?
-- Wat verandert er als je `padding` vergroot naar `40px`?
-- Probeer `margin: auto` — wat doet dat?
+- Wat gebeurt er als je `padding` vergroot naar `40px`?
+- Wat verandert er als je `margin` vergroot naar `40px`?
+- Probeer `padding: 0` — wat zie je?
+- Vervang `margin: 20px` door `margin: 0` — wat gebeurt er tussen de blokken?
 
 ## Modify
 
-**Opdracht:** Verander de achtergrondkleur naar lichtgeel en de randkleur naar rood.
+**Opdracht:** Geef de blokken een lichtgele achtergrond en vergroot de padding zodat er meer ademruimte is.
 
 <details>
 <summary>Tip</summary>
 
-Pas `background-color` en de kleur in `border` aan in de CSS van `div`.
+Pas `background-color` aan en zet `padding` op bijvoorbeeld `30px`.
 
 </details>
 
@@ -108,12 +109,9 @@ Pas `background-color` en de kleur in `border` aan in de CSS van `div`.
 
 ```css
 div {
-  background-color: #fffbe6;
-  border: 2px solid red;
-  border-radius: 8px;
-  padding: 20px;
+  background-color: lightyellow;
+  padding: 30px;
   margin: 20px;
-  width: 300px;
 }
 ```
 
@@ -121,12 +119,12 @@ div {
 
 ## Make
 
-**Opdracht:** Ontwerp een simpel visitekaartje. Maak hiervoor een `<div>` die fungeert als het "kaartje" en geef het met CSS een vaste breedte, een lichte achtergrondkleur, een mooie rand (`border`) en wat ruimte aan de binnenkant (`padding`). 
+**Opdracht:** Bouw twee "kaartjes" onder elkaar. Elk kaartje is een `<div>` met een kop en een paragraaf. Gebruik `background-color`, `padding` en `margin` om ze er rustig en goed verdeeld uit te laten zien.
 
 <details>
 <summary>Tip</summary>
 
-Geef de `<div>` een herkenbare achtergrond met `background-color`. Voeg je naam en rol toe met bijvoorbeeld een `<h2>` en `<p>`.
+Eén `div`-regel in CSS werkt al voor allebei de kaartjes. Geef ze dezelfde stijl via de `div`-selector.
 
 </details>
 
@@ -136,18 +134,21 @@ Geef de `<div>` een herkenbare achtergrond met `background-color`. Voeg je naam 
 ```html
 <!-- HTML -->
 <div>
-  <h2>Emma de Vries</h2>
-  <p>Web Developer</p>
+  <h2>Eerste kaartje</h2>
+  <p>Met wat tekst erin.</p>
+</div>
+<div>
+  <h2>Tweede kaartje</h2>
+  <p>Met ook wat tekst erin.</p>
 </div>
 ```
 
 ```css
 /* CSS */
 div {
-  width: 300px;
-  background-color: lightyellow;
-  border: 2px solid orange;
-  padding: 20px;
+  background-color: #e6f4ea;
+  padding: 25px;
+  margin: 15px;
 }
 ```
 
@@ -161,3 +162,9 @@ Een veelgemaakte fout is `margin` gebruiken als je `padding` bedoelt, of anderso
 
 - Wil je ruimte **binnen** het element (tussen inhoud en rand)? → `padding`
 - Wil je ruimte **buiten** het element (afstand tot andere elementen)? → `margin`
+
+In [les 10](/docs/html-css/border-en-dimensies) leer je hoe je deze blokken ook een rand en een vaste breedte geeft.
+
+---
+
+[← Les 5 – Pagina's koppelen](/docs/html-css/paginas-koppelen) | [Les 7 – CSS Klassen →](/docs/html-css/css-klassen)

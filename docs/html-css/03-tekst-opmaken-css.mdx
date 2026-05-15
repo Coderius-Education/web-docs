@@ -22,6 +22,10 @@ Je schrijft CSS in een apart bestand (`style.css`) en koppelt het aan je HTML me
 <link rel="stylesheet" href="style.css">
 ```
 
+:::note Let op
+`<link>` is **geen** klikbare link voor de bezoeker — het koppelt alleen je CSS-bestand aan de pagina. Klikbare links (waar je echt naartoe kunt) leer je in [les 5](/docs/html-css/paginas-koppelen).
+:::
+
 Een CSS-regel ziet er zo uit:
 
 ```css
@@ -34,6 +38,17 @@ h1 {
 - `h1` is de **selector** — welk element wordt gestijld
 - `color` en `font-size` zijn **eigenschappen**
 - `darkblue` en `2rem` zijn de **waarden**
+
+### Notities in je CSS: comments
+
+Net als in HTML kun je in CSS notities maken die niet zichtbaar zijn op de pagina. Een CSS-comment staat tussen `/*` en `*/`:
+
+```css
+/* Dit is een comment in CSS. Handig om jezelf te herinneren wat een regel doet. */
+h1 {
+  color: red;
+}
+```
 
 ### Handige eigenschappen voor tekst
 
