@@ -1,12 +1,12 @@
 ---
-title: Les 6 – Events
-sidebar_label: 6. Events
+title: Events
+sidebar_label: Events
 hide_table_of_contents: true
 ---
 
 import CodeEditor from '@site/src/components/CodeEditor';
 
-# Les 6 – Events
+# Events
 
 ## Wat ga je leren?
 
@@ -14,13 +14,43 @@ Je leert hoe je met `addEventListener` reageert op gebruikersacties zoals muisbe
 
 ## Theorie
 
-In de vorige lessen gebruikte je `onclick` direct in de HTML. Een krachtigere manier is `addEventListener` in JavaScript — zo houd je HTML en gedrag gescheiden:
+In de vorige lessen gebruikte je `onclick` direct in de HTML. Een krachtigere manier is `addEventListener` in JavaScript — zo houd je HTML en gedrag gescheiden.
+
+### Stap 1 — een functie maken (zoals je al kent)
+
+Schrijf eerst een gewone functie (zoals in [De script-tag](/docs/js-basics/script-tag)):
+
+```js
+function zegHoi() {
+  document.getElementById('status').textContent = 'Geklikt!';
+}
+```
+
+### Stap 2 — die functie koppelen aan een event
+
+Met `addEventListener` koppel je een functie aan een gebeurtenis op een element. De functie geef je mee **zonder haakjes** (anders roep je hem direct aan):
+
+```js
+document.getElementById('knop').addEventListener('click', zegHoi);
+```
+
+De drie onderdelen:
+- `'click'` — de naam van het event waarop je reageert
+- `zegHoi` — de functie die uitgevoerd wordt zodra het event plaatsvindt
+
+### Korte vorm: functie meteen erin schrijven
+
+Als je de functie maar één keer gebruikt, kun je hem ook **direct** in de listener zetten zonder hem een naam te geven. Dat heet een **anonieme functie**:
 
 ```js
 document.getElementById('knop').addEventListener('click', function() {
-  alert('Geklikt!');
+  document.getElementById('status').textContent = 'Geklikt!';
 });
 ```
+
+Beide vormen doen exact hetzelfde. De anonieme versie is korter voor eenmalige acties.
+
+### Welke events bestaan er?
 
 Je kunt luisteren naar allerlei events:
 
@@ -114,12 +144,12 @@ document.getElementById('knop').addEventListener('click', function() {
 
 ## Make
 
-**Opdracht:** Bouw een interactieve kleurenknop. Als de muis over de knop beweegt, verandert de achtergrondkleur van de knop. Als de muis de knop verlaat, gaat de kleur terug. Bij een klik verandert de knoptekst naar "Geklikt!" en telt een klik-teller op in een `<p>` eronder.
+**Opdracht:** Bouw een klik-counter. Eén knop, één paragraaf. Bij elke klik telt de teller met 1 omhoog en toon je het aantal in de paragraaf.
 
 <details>
 <summary>Tip</summary>
 
-Gebruik `event.target` of `document.getElementById` om de knop zelf te stijlen. Je hebt drie listeners nodig: `mouseover`, `mouseout` en `click`.
+Je hebt één variabele `teller` (buiten de listener!) en één `addEventListener('click', ...)`. Verhoog de teller binnenin met `teller = teller + 1`.
 
 </details>
 
@@ -128,28 +158,16 @@ Gebruik `event.target` of `document.getElementById` om de knop zelf te stijlen. 
 
 HTML:
 ```html
-<button id="knop">Beweeg of klik!</button>
-<p id="status">Nog niet geklikt.</p>
+<button id="knop">Klik mij</button>
+<p id="status">Klik op de knop.</p>
 ```
 
 script.js:
 ```js
 let teller = 0;
-const knop = document.getElementById('knop');
 
-knop.addEventListener('mouseover', function() {
-  knop.style.backgroundColor = '#4a90e2';
-  knop.style.color = 'white';
-});
-
-knop.addEventListener('mouseout', function() {
-  knop.style.backgroundColor = '';
-  knop.style.color = '';
-});
-
-knop.addEventListener('click', function() {
+document.getElementById('knop').addEventListener('click', function() {
   teller = teller + 1;
-  knop.textContent = 'Geklikt!';
   document.getElementById('status').textContent = 'Aantal klikken: ' + teller;
 });
 ```
@@ -174,4 +192,4 @@ Met `addEventListener` kun je ook **meerdere** listeners aan hetzelfde element k
 
 ---
 
-[← Les 5 – Variabelen](/docs/js-basics/variabelen) | [Les 7 – Waarden en operatoren →](/docs/js-basics/operatoren-types)
+[← Variabelen](/docs/js-basics/variabelen) | [Waarden en operatoren →](/docs/js-basics/operatoren-types)

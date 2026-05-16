@@ -1,12 +1,12 @@
 ---
-title: Les 3 – De script-tag
-sidebar_label: 3. De script-tag
+title: De script-tag
+sidebar_label: De script-tag
 hide_table_of_contents: true
 ---
 
 import CodeEditor from '@site/src/components/CodeEditor';
 
-# Les 3 – De script-tag
+# De script-tag
 
 ## Wat ga je leren?
 
@@ -25,7 +25,7 @@ Dit wordt snel onleesbaar. De oplossing is een **functie**.
 
 ## Stap 1 — functies
 
-Een functie is een blok code met een naam. Je definieert de functie één keer, en roept hem daarna aan via `onclick`:
+Een **functie** is een blok code met een naam. Je definieert hem één keer, en roept hem later aan zo vaak als je wil. Een functie bestaat uit vier onderdelen:
 
 ```js
 function verander() {
@@ -34,11 +34,29 @@ function verander() {
 }
 ```
 
-In de HTML roep je de functie aan met haar naam gevolgd door `()`:
+1. **`function`** — het sleutelwoord dat zegt: "ik maak een functie aan".
+2. **`verander`** — de **naam** die je zelf kiest. Geen spaties; gebruik camelCase als je meer woorden wilt (`maakKleurRood`).
+3. **`()`** — twee ronde haakjes. (Later kun je hierin **parameters** zetten, maar voor nu blijven ze leeg.)
+4. **`{ ... }`** — accolades met daartussen de **regels code** die uitgevoerd worden zodra je de functie aanroept.
+
+### De functie aanroepen
+
+Een functie *definiëren* is niet hetzelfde als hem *uitvoeren*. De code binnenin draait pas zodra je de naam typt met `()` erachter:
+
+```js
+verander();   // nu draait de code binnenin
+```
+
+In HTML doe je dat via het `onclick`-attribuut: bij een klik op de knop wordt de functie aangeroepen.
 
 ```html
 <button onclick="verander()">Klik mij</button>
 ```
+
+:::tip Naam zonder haakjes vs. mét haakjes
+`verander` (zonder haakjes) is een **verwijzing** naar de functie — alsof je een telefoonnummer noemt.
+`verander()` (mét haakjes) is een **aanroep** — alsof je dat nummer ook daadwerkelijk belt.
+:::
 
 ## Stap 2 — de `<script>` tag
 
@@ -201,8 +219,8 @@ Gebruik `style.backgroundColor` voor de achtergrondkleur. Een lege string (`''`)
 </body>
 ```
 
-Als de `<script>` tag in de `<head>` staat en de functie wordt direct aangeroepen (niet via een knop), bestaat de `<p>` nog niet — `getElementById` geeft dan `null` terug. Zet de `<script>` tag altijd **onderaan** de `<body>`, na alle HTML-elementen. (In les 4 zie je hoe je dit ook met `defer` oplost vanuit de `<head>`.)
+Als de `<script>` tag in de `<head>` staat en de functie wordt direct aangeroepen (niet via een knop), bestaat de `<p>` nog niet — `getElementById` geeft dan `null` terug. Zet de `<script>` tag altijd **onderaan** de `<body>`, na alle HTML-elementen. (In [script.js](/docs/js-basics/scriptjs) zie je hoe je dit ook met `defer` oplost vanuit de `<head>`.)
 
 ---
 
-[← Les 2 – Inline stijl](/docs/js-basics/inline-stijl) | [Les 4 – script.js →](/docs/js-basics/scriptjs)
+[← Inline stijl](/docs/js-basics/inline-stijl) | [script.js →](/docs/js-basics/scriptjs)
