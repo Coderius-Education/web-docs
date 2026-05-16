@@ -547,6 +547,21 @@ Het box-model beschrijft hoe ruimte rondom een element werkt:
 </details>
 
 <details>
+<summary>Box-sizing — <code>border-box</code></summary>
+
+Standaard telt `width` alleen voor de inhoud — `padding` en `border` komen er bovenop. Met `box-sizing: border-box` worden padding en border meegerekend in de breedte:
+
+```css
+* {
+  box-sizing: border-box;
+}
+```
+
+Zet bovenaan je CSS-bestand. Dan is `width: 300px` écht 300px, ook met padding en border.
+
+</details>
+
+<details>
 <summary>Breedte en hoogte — <code>width</code>, <code>height</code></summary>
 
 Met `width` en `height` stel je de afmetingen van een element in pixels in. Als je alleen `width` instelt bij een afbeelding, past de hoogte automatisch mee. Bij een `<div>` moet je beide instellen als je een vaste grootte wilt.
@@ -742,6 +757,96 @@ Flexbox zet elementen naast elkaar en laat je ze eenvoudig uitlijnen. Je zet `di
 }`}
   height="420px"
 />
+
+</details>
+
+### Position
+
+<details>
+<summary>Positioneren — <code>position</code>, <code>top</code>/<code>right</code>/<code>bottom</code>/<code>left</code></summary>
+
+Met `position` haal je een element uit de gewone tekstvolgorde en bepaal je waar het komt te staan:
+
+| Waarde | Wat |
+|---|---|
+| `static` | Standaard (geen verschuiving mogelijk) |
+| `relative` | Schuif t.o.v. eigen plek |
+| `absolute` | Schuif t.o.v. dichtstbijzijnde ouder met `position: relative` |
+| `fixed` | Blijf op vaste plek in browservenster (ook bij scrollen) |
+
+```css
+.container { position: relative; }   /* referentie voor absolute */
+
+.badge {
+  position: absolute;
+  top: 0;
+  right: 0;                          /* hoek rechtsboven van container */
+}
+
+.scroll-knop {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;                       /* blijft op het scherm bij scrollen */
+}
+```
+
+</details>
+
+### Grid
+
+<details>
+<summary>2D-layout — <code>display: grid</code></summary>
+
+`display: grid` op een container maakt een **rooster** met rijen en kolommen. De `fr`-eenheid verdeelt beschikbare ruimte in delen.
+
+```css
+.galerij {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;   /* drie even brede kolommen */
+  gap: 10px;
+}
+```
+
+| Eigenschap | Wat |
+|---|---|
+| `grid-template-columns` | Definieert kolommen (bijv. `1fr 1fr 1fr`, `200px 1fr`) |
+| `grid-template-rows` | Definieert rijen |
+| `gap` | Ruimte tussen rijen en kolommen |
+| `grid-column: span 2` | Item neemt 2 kolommen in beslag |
+| `grid-column: 1 / -1` | Item over volle breedte (eerste tot laatste lijn) |
+
+Gebruik Grid voor 2D-layouts (foto-galerij, dashboard); Flexbox voor 1D (rij of kolom).
+
+</details>
+
+### Media queries
+
+<details>
+<summary>Responsief design — <code>@media (max-width: ...)</code></summary>
+
+Een media query past CSS alleen toe als de schermbreedte aan een voorwaarde voldoet:
+
+```css
+.kaart { width: 600px; }
+
+@media (max-width: 700px) {
+  .kaart { width: 100%; }
+}
+```
+
+| Voorwaarde | Wanneer geldig |
+|---|---|
+| `(max-width: 700px)` | Schermen smaller dan 700px (mobiel) |
+| `(min-width: 800px)` | Schermen breder dan 800px (desktop) |
+
+**Mobile-first**: schrijf je basis-CSS voor mobiel, voeg `@media (min-width: ...)`-regels toe voor groter.
+
+:::warning Viewport-meta vergeten
+Zonder deze meta-tag in `<head>` rendert de browser de pagina alsof het scherm 980px breed is — media queries triggeren dan niet op telefoons:
+```html
+<meta name="viewport" content="width=device-width, initial-scale=1">
+```
+:::
 
 </details>
 
@@ -967,6 +1072,31 @@ Let op: `'5' + 1` is `'51'` (plakken), niet `6`. Gebruik `Number('5') + 1` om om
 </details>
 
 <details>
+<summary>Template literals — backticks en placeholders</summary>
+
+Met backticks (`` ` ``) kun je variabelen direct in tekst plaatsen via placeholders met dollar-accolades:
+
+```js
+const naam = 'Lisa';
+const leeftijd = 16;
+
+// Oud (met +)
+const zin1 = 'Hoi ' + naam + ', je bent ' + leeftijd + ' jaar.';
+
+// Nieuw (template literal)
+const zin2 = `Hoi ${naam}, je bent ${leeftijd} jaar.`;
+```
+
+Voordelen:
+- Leesbaarder bij veel variabelen
+- Berekeningen mogen in een placeholder: `` `Volgend jaar: ${leeftijd + 1}` ``
+- Werkt over meerdere regels
+
+Let op: het is een **backtick** (linksboven op het toetsenbord), geen apostrof.
+
+</details>
+
+<details>
 <summary>Vergelijk-operatoren — <code>===</code>, <code>!==</code>, <code>&gt;</code>, <code>&lt;</code></summary>
 
 Vergelijken levert altijd `true` of `false` op:
@@ -1104,6 +1234,33 @@ button { padding: 8px 16px; font-size: 1rem; cursor: pointer; }`}
 
 </details>
 
+<details>
+<summary>Logische operatoren — <code>&amp;&amp;</code>, <code>||</code>, <code>!</code></summary>
+
+Combineer meerdere voorwaarden met:
+
+| Operator | Wat | Voorbeeld |
+|---|---|---|
+| `&&` | EN — beide moeten waar zijn | `leeftijd >= 18 && heeftToegang` |
+| `\|\|` | OF — minstens één moet waar zijn | `dag === 'za' \|\| dag === 'zo'` |
+| `!` | NIET — keert de waarde om | `!isIngelogd` |
+
+```js
+if (leeftijd >= 18 && heeftToegang) {
+  console.log('Welkom!');
+}
+
+if (dag === 'za' || dag === 'zo') {
+  console.log('Weekend');
+}
+
+if (!isJarig) {
+  console.log('Niet jarig vandaag');
+}
+```
+
+</details>
+
 ### Events
 
 <details>
@@ -1202,115 +1359,145 @@ button { padding: 6px 12px; cursor: pointer; }
 
 </details>
 
-### Operatoren en datatypes
+### prompt & alert
 
 <details>
-<summary>Datatypes — number, string, boolean</summary>
+<summary>Snelle input/output — <code>prompt()</code> en <code>alert()</code></summary>
 
-JavaScript kent drie basis-datatypes:
-
-| Type | Wat het is | Voorbeeld |
-|---|---|---|
-| `number` | Getal | `42`, `3.14` |
-| `string` | Tekst (tussen quotes) | `'hallo'`, `"Anna"` |
-| `boolean` | Ja/nee | `true`, `false` |
+Ingebouwde browser-functies voor snelle demo's:
 
 ```js
-let leeftijd = 16;        // number
-let naam = 'Anna';        // string
-let isJarig = true;       // boolean
+alert('Hallo wereld!');               // toont popup met OK-knop
+
+const naam = prompt('Hoe heet je?');  // vraagt om invoer
+alert('Hoi ' + naam + '!');
 ```
 
-</details>
+- `prompt()` geeft een **string** terug (ook bij getallen — gebruik `Number(prompt(...))` om te rekenen).
+- Klikt de gebruiker op Cancel, dan is `prompt()` gelijk aan `null`.
 
-<details>
-<summary>Rekenoperatoren — <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>, <code>%</code></summary>
-
-| Operator | Wat | Voorbeeld |
-|---|---|---|
-| `+` | Optellen / strings plakken | `3 + 4` → `7`; `'Hi ' + naam` |
-| `-` | Aftrekken | `10 - 3` → `7` |
-| `*` | Vermenigvuldigen | `3 * 4` → `12` |
-| `/` | Delen | `10 / 2` → `5` |
-| `%` | Rest na deling | `10 % 3` → `1` |
-
-Let op: `'3' + 4` is `'34'` (string-concatenatie), `3 + 4` is `7` (optellen). Gebruik `Number(x)` om een string naar een getal te zetten.
+:::tip Wanneer wel/niet?
+Voor een echte website is `prompt`/`alert` te storend. Gebruik [`<input>` + `.value`](#formulier-data-ophalen) voor netjes ingebouwde invoer. `prompt`/`alert` zijn alleen handig voor mini-demo's.
+:::
 
 </details>
 
-<details>
-<summary>Vergelijkingsoperatoren — <code>===</code>, <code>!==</code>, <code>&gt;</code>, <code>&lt;</code></summary>
-
-Resultaat van een vergelijking is altijd een **boolean** (`true` of `false`):
-
-| Operator | Wat | Voorbeeld |
-|---|---|---|
-| `===` | Gelijk aan | `5 === 5` → `true` |
-| `!==` | Niet gelijk | `5 !== 3` → `true` |
-| `>` | Groter dan | `5 > 3` → `true` |
-| `<` | Kleiner dan | `5 < 3` → `false` |
-| `>=` | Groter of gelijk | `5 >= 5` → `true` |
-| `<=` | Kleiner of gelijk | `5 <= 4` → `false` |
-
-Gebruik altijd `===` (drie tekens), niet `==`. `5 == '5'` is `true` maar `5 === '5'` is `false` — en dat laatste klopt: een getal is geen string.
-
-</details>
-
-### Beslissingen — if / else
+### Loops
 
 <details>
-<summary>if, else, else if</summary>
+<summary>Herhaling — <code>for</code>-loop</summary>
 
-Met `if` voer je code alleen uit als een voorwaarde waar is. Met `else` doe je iets *anders* als de voorwaarde niet klopt. Met `else if` ketens van voorwaarden:
+Een `for`-loop herhaalt een blok code een vast aantal keer:
 
 ```js
-if (cijfer >= 8) {
-  console.log('Goed');
-} else if (cijfer >= 5.5) {
-  console.log('Voldoende');
-} else {
-  console.log('Onvoldoende');
+for (let i = 0; i < 5; i++) {
+  console.log('Ronde ' + i);
 }
 ```
 
-Combineer voorwaarden met `&&` (EN), `||` (OF), `!` (NIET):
+De drie delen tussen haakjes:
+- **`let i = 0`** — beginwaarde van de tellervariabele
+- **`i < 5`** — voorwaarde: zolang dit `true` is, blijft de loop draaien
+- **`i++`** — wat er na elke ronde gebeurt (kort voor `i = i + 1`)
 
-```js
-if (leeftijd >= 18 && heeftToegang) { ... }
-if (dag === 'za' || dag === 'zo') { ... }
-if (!isJarig) { ... }
-```
-
-**Veelgemaakte fout**: `if (score = 10)` — één `=` is toekennen, geen vergelijking. Gebruik `===`.
-
-<CodeEditor
-  initialHtml={`<!DOCTYPE html>
-<html lang="nl">
-<head>
-  <meta charset="UTF-8">
-  <link rel="stylesheet" href="style.css">
-  <script src="script.js" defer></script>
-</head>
-<body>
-  <p id="uitvoer">Klik op de knop.</p>
-  <button onclick="check()">Check cijfer</button>
-</body>
-</html>`}
-  initialCss={`p { font-size: 1.3rem; padding: 12px; }
-button { padding: 8px 16px; font-size: 1rem; cursor: pointer; }`}
-  initialJs={`function check() {
-  const cijfer = 7;
-
-  if (cijfer >= 8) {
-    document.getElementById('uitvoer').textContent = 'Goed!';
-  } else if (cijfer >= 5.5) {
-    document.getElementById('uitvoer').textContent = 'Voldoende';
-  } else {
-    document.getElementById('uitvoer').textContent = 'Onvoldoende';
-  }
-}`}
-  height="460px"
-  livePreview={false}
-/>
+Resultaat: `Ronde 0`, `Ronde 1`, ..., `Ronde 4`.
 
 </details>
+
+<details>
+<summary>Herhaling met voorwaarde — <code>while</code></summary>
+
+`while` draait zolang een voorwaarde `true` is:
+
+```js
+let teller = 0;
+while (teller < 5) {
+  console.log(teller);
+  teller = teller + 1;   // niet vergeten — anders oneindige loop!
+}
+```
+
+Vergeet binnenin de loop niet de variabele aan te passen — anders bevriest de browser.
+
+</details>
+
+### Arrays
+
+<details>
+<summary>Lijsten — <code>[]</code>, index, <code>.length</code>, <code>.push()</code></summary>
+
+Een array is een geordende lijst tussen vierkante haken:
+
+```js
+const namen = ['Anna', 'Bram', 'Chris'];
+
+console.log(namen[0]);      // 'Anna' — eerste item (index 0!)
+console.log(namen.length);  // 3
+namen.push('Daan');         // voeg toe aan einde
+namen[0] = 'Anouk';         // vervang eerste item
+```
+
+Items beginnen bij **index 0**, niet 1.
+
+Combineren met een loop om alle items te bewerken:
+
+```js
+for (let i = 0; i < namen.length; i++) {
+  console.log('Hallo ' + namen[i]);
+}
+```
+
+</details>
+
+### Modern DOM
+
+<details>
+<summary>Selecteren met CSS-syntax — <code>querySelector</code></summary>
+
+`document.querySelector(...)` selecteert met een **CSS-selector** — krachtiger dan `getElementById`:
+
+```js
+document.querySelector('#welkom');        // id="welkom"
+document.querySelector('.kaart');         // eerste class="kaart"
+document.querySelector('button');         // eerste <button>
+document.querySelector('.kaart h2');      // h2 binnen .kaart
+```
+
+`document.querySelectorAll(...)` geeft **alle** matchende elementen (loop eroverheen):
+
+```js
+const knoppen = document.querySelectorAll('button');
+for (let i = 0; i < knoppen.length; i++) {
+  knoppen[i].textContent = 'Klik!';
+}
+```
+
+Geeft `null` terug als er geen match is — check op `null` voordat je iets doet met het resultaat.
+
+</details>
+
+<details>
+<summary>CSS-klassen toevoegen/verwijderen — <code>classList</code></summary>
+
+In plaats van `.style.xxx = '...'` definieer je je stijl in CSS, en zet/verwijder je een klasse:
+
+```js
+const kaart = document.querySelector('.kaart');
+
+kaart.classList.add('actief');       // klasse toevoegen
+kaart.classList.remove('actief');    // klasse verwijderen
+kaart.classList.toggle('actief');    // aan/uit schakelen
+kaart.classList.contains('actief');  // true/false
+```
+
+In CSS definieer je dan twee toestanden:
+
+```css
+.kaart { background-color: lightgray; }
+.kaart.actief { background-color: gold; }
+```
+
+Schoner dan veel `.style`-regels.
+
+</details>
+

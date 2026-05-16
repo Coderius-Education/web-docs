@@ -58,6 +58,16 @@ function CodeEditorInner({
     setSrcDoc(buildDoc(html, css, js));
   }, [html, css, js]);
 
+  const handleReset = useCallback(() => {
+    if (window.confirm('Weet je zeker dat je terug wilt naar de startcode? Je huidige wijzigingen gaan verloren.')) {
+      setHtml(initialHtml);
+      setCss(initialCss);
+      setJs(initialJs);
+      setConsoleLogs([]);
+      setSrcDoc(livePreview ? buildDoc(initialHtml, initialCss, initialJs) : '');
+    }
+  }, [initialHtml, initialCss, initialJs, livePreview]);
+
   useEffect(() => {
     function handler(e: MessageEvent) {
       if (e.data?.source === 'code-editor' && e.data?.type === 'console') {
@@ -106,6 +116,9 @@ function CodeEditorInner({
               ▶ Run
             </button>
           )}
+          <button className={styles.resetButton} onClick={handleReset} title="Terug naar startcode">
+            ↺ Reset
+          </button>
         </div>
         <div className={styles.paneWrapper}>
           <Suspense fallback={<div className={styles.loading}>Editor laden...</div>}>

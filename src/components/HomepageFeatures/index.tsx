@@ -11,17 +11,17 @@ type CourseCard = {
 
 const courses: CourseCard[] = [
   {
-    title: 'HTML & CSS',
+    title: 'HTML & CSS — 14 lessen',
     description:
-      'Leer de bouwstenen van het web. Van paginastructuur en tekst tot afbeeldingen, stijlen en flexbox.',
+      'De bouwstenen van het web: paginastructuur, tekst, afbeeldingen, links, CSS-klassen, pseudo-klassen, Flexbox, semantische HTML en formulieren.',
     to: '/docs/html-css/intro-html',
     label: 'Start HTML & CSS',
   },
   {
-    title: 'JavaScript',
+    title: 'JavaScript — 10 lessen',
     description:
-      'Maak je pagina interactief. Van knoppen en functies tot variabelen en events.',
-    to: '/docs/js-basics/inline-onclick',
+      'Maak je pagina interactief: onclick, functies, variabelen, events, beslissingen (if/else), datatypes en formulier-data uitlezen.',
+    to: '/docs/js-basics/intro-javascript',
     label: 'Start JavaScript',
   },
 ];

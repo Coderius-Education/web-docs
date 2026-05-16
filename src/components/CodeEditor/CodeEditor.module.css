@@ -140,6 +140,26 @@
   background: var(--ifm-color-primary-dark);
 }
 
+.resetButton {
+  margin-left: auto;
+  padding: 0.35rem 0.7rem;
+  background: transparent;
+  color: var(--ifm-color-emphasis-700);
+  border: 1px solid var(--ifm-color-emphasis-400);
+  cursor: pointer;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.runButton + .resetButton {
+  margin-left: 0.4rem;
+}
+
+.resetButton:hover {
+  background: var(--ifm-color-emphasis-200);
+  color: var(--ifm-color-emphasis-900);
+}
+
 .paneWrapper {
   flex: 1;
   overflow: hidden;

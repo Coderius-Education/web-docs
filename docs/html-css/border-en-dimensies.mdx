@@ -1,12 +1,12 @@
 ---
-title: Les 10 – Randen en afmetingen
-sidebar_label: 10. Randen en afmetingen
+title: Randen en afmetingen
+sidebar_label: Randen en afmetingen
 hide_table_of_contents: true
 ---
 
 import CodeEditor from '@site/src/components/CodeEditor';
 
-# Les 10 – Randen en afmetingen
+# Randen en afmetingen
 
 ## Wat ga je leren?
 
@@ -14,7 +14,7 @@ Je leert hoe je elementen een **rand** geeft, hoe je hoeken **afrondt**, en hoe 
 
 ## Theorie
 
-In [les 6](/docs/html-css/elementen-opmaken) leerde je over padding en margin. Nu voegen we drie nieuwe stijlen toe:
+In [Ruimte rond elementen](/docs/html-css/elementen-opmaken) leerde je over padding en margin. Nu voegen we drie nieuwe stijlen toe:
 
 | Eigenschap | Wat het doet | Voorbeeld |
 |---|---|---|
@@ -143,6 +143,20 @@ div {
 
 </details>
 
+## Bonus: `box-sizing: border-box`
+
+Standaard telt CSS `width: 300px` **alleen voor de inhoud** — `padding` en `border` komen er nog *bovenop*. Een box met `width: 300px`, `padding: 20px` en `border: 2px` is in totaal **344px** breed.
+
+Dat is verwarrend. De oplossing: zet `box-sizing: border-box`. Dan rekent CSS padding en border **mee** in de breedte, en `width: 300px` is écht 300px.
+
+```css
+* {
+  box-sizing: border-box;  /* geldt voor alle elementen */
+}
+```
+
+In de praktijk zet bijna iedere ontwikkelaar dit in de eerste regels van zijn CSS. Daarna kun je `width` en `padding` combineren zonder rekenwerk.
+
 ## Er gaat iets mis
 
 **Width zonder eenheid**
@@ -158,4 +172,4 @@ CSS-waarden voor afmetingen hebben **altijd** een eenheid nodig — meestal `px`
 
 ---
 
-[← Les 9 – Flexbox](/docs/html-css/flexbox) | [Les 11 – Semantische HTML →](/docs/html-css/semantische-html)
+[← Flexbox](/docs/html-css/flexbox) | [Semantische HTML →](/docs/html-css/semantische-html)

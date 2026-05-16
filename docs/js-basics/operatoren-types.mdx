@@ -1,12 +1,12 @@
 ---
-title: Les 7 – Waarden en operatoren
-sidebar_label: 7. Waarden en operatoren
+title: Waarden en operatoren
+sidebar_label: Waarden en operatoren
 hide_table_of_contents: true
 ---
 
 import CodeEditor from '@site/src/components/CodeEditor';
 
-# Les 7 – Waarden en operatoren
+# Waarden en operatoren
 
 ## Wat ga je leren?
 
@@ -48,6 +48,22 @@ let begroeting = 'Hallo, ' + 'wereld!';   // 'Hallo, wereld!'
 let leeftijd = 16;
 let zin = 'Ik ben ' + leeftijd + ' jaar.';  // 'Ik ben 16 jaar.'
 ```
+
+### Modernere variant: template literals
+
+Het bovenstaande met veel `+` kan onoverzichtelijk worden. Met **template literals** (tussen **backticks** `` ` ``) kun je variabelen direct in de tekst stoppen via `${...}`:
+
+```js
+const leeftijd = 16;
+const zin = `Ik ben ${leeftijd} jaar.`;   // 'Ik ben 16 jaar.'
+```
+
+Voordelen:
+- Geen geknoei met `+` en quotes
+- Werkt ook met meerdere regels (een backtick-string mag over meerdere regels lopen)
+- Berekeningen mogen in `${...}`: `` `Volgend jaar: ${leeftijd + 1}` ``
+
+Let op: het is geen gewoon enkel aanhalingsteken (`'`), maar de **backtick** — vaak linksboven op je toetsenbord onder Esc.
 
 ### Vergelijken (resulteert in `boolean`)
 
@@ -175,21 +191,16 @@ function reken() {
 
 ## Make
 
-**Opdracht:** Bouw een "leeftijd-checker". Sla een leeftijd op in een variabele. Toon op de pagina:
+**Opdracht:** Bouw een "leeftijd-checker". Sla een leeftijd op in een variabele en toon op de pagina:
 - de leeftijd zelf
 - of de persoon meerderjarig is (`true` / `false`)
-- een zin: "Je bent meerderjarig" of "Je bent minderjarig" (kijk hieronder bij Tip hoe — `if`/`else` komt in les 8)
 
 <details>
 <summary>Tip</summary>
 
-Sla het resultaat van de vergelijking op in een boolean: `const meerderjarig = leeftijd >= 18;`. Voor de zin kun je dit gebruiken (een **ternary**):
+Sla het resultaat van de vergelijking op in een boolean: `const meerderjarig = leeftijd >= 18;`. Toon die waarde rechtstreeks — JavaScript zet `true`/`false` automatisch om naar tekst zodra je hem in `.textContent` zet.
 
-```js
-const zin = meerderjarig ? 'Je bent meerderjarig' : 'Je bent minderjarig';
-```
-
-De volledige `if`/`else` syntax leer je in [les 8](/docs/js-basics/if-else).
+In [Beslissingen](/docs/js-basics/if-else) leer je hoe je op basis van die boolean een passende zin laat zien ("Je bent meerderjarig" of "Je bent minderjarig").
 
 </details>
 
@@ -200,11 +211,9 @@ De volledige `if`/`else` syntax leer je in [les 8](/docs/js-basics/if-else).
 function check() {
   const leeftijd = 17;
   const meerderjarig = leeftijd >= 18;
-  const zin = meerderjarig ? 'Je bent meerderjarig' : 'Je bent minderjarig';
 
   document.getElementById('leeftijd').textContent = 'Leeftijd: ' + leeftijd;
   document.getElementById('boolean').textContent = 'Meerderjarig: ' + meerderjarig;
-  document.getElementById('zin').textContent = zin;
 }
 ```
 
@@ -227,4 +236,4 @@ const totaal = Number(aantal) + 1;  // nu wel 6
 
 ---
 
-[← Les 6 – Events](/docs/js-basics/events) | [Les 8 – Beslissingen →](/docs/js-basics/if-else)
+[← Events](/docs/js-basics/events) | [Beslissingen →](/docs/js-basics/if-else)

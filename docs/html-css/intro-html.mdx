@@ -1,12 +1,12 @@
 ---
-title: Les 1 – Intro to HTML
-sidebar_label: 1. Intro to HTML
+title: Intro to HTML
+sidebar_label: Intro to HTML
 hide_table_of_contents: true
 ---
 
 import CodeEditor from '@site/src/components/CodeEditor';
 
-# Les 1 – Intro to HTML
+# Intro to HTML
 
 ## Wat ga je leren?
 
@@ -22,6 +22,24 @@ HTML staat voor **HyperText Markup Language**. Het is de taal die browsers begri
 ```
 
 Elke tag heeft een **openingstag** (`<p>`) en een **sluitingstag** (`</p>`). De inhoud staat er tussenin.
+
+### Klein extra: `<strong>`, `<em>`, `<br>`, `<hr>`
+
+Een paar veelgebruikte mini-tags:
+
+- **`<strong>`** — belangrijke (vetgedrukte) tekst. Net als `<b>`, maar `<strong>` vertelt screenreaders en zoekmachines dat het *belangrijk* is.
+- **`<em>`** — benadrukte (cursieve) tekst. Net als `<i>`, maar `<em>` betekent semantisch "benadrukken".
+- **`<br>`** — een **regeleinde**. Zelfsluitend (heeft geen `</br>`). Gebruik spaarzaam — meestal kun je beter een nieuwe `<p>` openen.
+- **`<hr>`** — een **horizontale lijn** ter scheiding van secties. Ook zelfsluitend.
+
+```html
+<p>Dit is <strong>belangrijk</strong> en dit is <em>benadrukt</em>.</p>
+<p>Eerste regel<br>Tweede regel</p>
+<hr>
+<p>Een stuk verderop op de pagina.</p>
+```
+
+Vuistregel: kies `<strong>` boven `<b>` en `<em>` boven `<i>` zodra je betekenis wilt overbrengen, niet alleen visuele opmaak.
 
 ### Notities in je code: comments
 
