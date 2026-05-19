@@ -1,0 +1,74 @@
+name: Docs review (regelgebaseerd)
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+    branches: [main, master]
+    paths:
+      - 'docs/**'
+      - 'src/**/*.md'
+      - 'src/**/*.mdx'
+      - '**/*.md'
+      - '**/*.mdx'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+
+concurrency:
+  group: docs-review-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  review:
+    name: Lint gewijzigde docs tegen de schrijfgids
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.draft != true
+    env:
+      BASE_SHA: ${{ github.event.pull_request.base.sha }}
+      HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+      PR_NUMBER: ${{ github.event.pull_request.number }}
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      REPO: ${{ github.repository }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Bepaal gewijzigde .md/.mdx bestanden
+        id: changed
+        run: |
+          set -euo pipefail
+          git diff --name-only --diff-filter=AM "$BASE_SHA" "$HEAD_SHA" -- '*.md' '*.mdx' \
+            | grep -Ev '^(node_modules/|build/|\.docusaurus/|static/)' \
+            > changed_files.txt || true
+          COUNT=$(wc -l < changed_files.txt | tr -d ' ')
+          echo "count=$COUNT" >> "$GITHUB_OUTPUT"
+          echo "Gewijzigde bestanden ($COUNT):"
+          cat changed_files.txt || true
+
+      - name: Geen docs gewijzigd
+        if: steps.changed.outputs.count == '0'
+        run: echo "::notice::Geen .md/.mdx wijzigingen — niets te beoordelen."
+
+      - name: Setup Python
+        if: steps.changed.outputs.count != '0'
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Run docs linter
+        if: steps.changed.outputs.count != '0'
+        run: python .github/scripts/docs_lint.py changed_files.txt review.md
+
+      - name: Plaats review als PR-comment
+        if: steps.changed.outputs.count != '0'
+        run: |
+          set -euo pipefail
+          if [ ! -s review.md ]; then
+            echo "::warning::Geen review-output van de linter."
+            exit 0
+          fi
+          gh pr comment "$PR_NUMBER" --repo "$REPO" --body-file review.md
