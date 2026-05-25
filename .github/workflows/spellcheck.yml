@@ -1,0 +1,51 @@
+name: Spellcheck (NL + EN)
+
+on:
+  pull_request:
+    branches: [main, master]
+    paths:
+      - 'docs/**'
+      - 'src/**/*.md'
+      - 'src/**/*.mdx'
+      - '**/*.md'
+      - '**/*.mdx'
+      - '.github/cspell.json'
+      - '.github/workflows/spellcheck.yml'
+  push:
+    branches: [main, master]
+    paths:
+      - 'docs/**'
+      - '**/*.md'
+      - '**/*.mdx'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: spellcheck-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  cspell:
+    name: cspell (Nederlands + Engels)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.x'
+
+      - name: Installeer cspell + Nederlandse woordenlijst
+        run: npm install --no-save --no-audit --no-fund cspell@8 '@cspell/dict-nl-nl'
+
+      - name: Run cspell op alle .md / .mdx bestanden
+        run: |
+          set -o pipefail
+          if [ -f .github/cspell.json ]; then
+            npx cspell --config .github/cspell.json --no-progress --gitignore "**/*.md" "**/*.mdx"
+          else
+            echo "::warning::Geen .github/cspell.json gevonden — cspell gebruikt defaults."
+            npx cspell --no-progress --gitignore "**/*.md" "**/*.mdx"
+          fi
